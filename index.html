@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XENO-Hosting Solution – VPS & RDP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family:'Inter', sans-serif;
+            background:#0D0F17;
+            color:#fff;
+            line-height:1.6;
+            scroll-behavior:smooth;
+        }
+
+        :root{
+            --bg:#0D0F17;
+            --bg-card:#161922;
+            --accent:#00E0FF;
+            --accent2:#7B5CFF;
+            --text:#ffffff;
+            --text2:#c7cbd9;
+            --radius:16px;
+        }
+
+        /* NAVBAR */
+        nav{
+            position:fixed;
+            top:0; left:0;
+            width:100%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:16px 6%;
+            background:rgba(13,15,23,0.7);
+            backdrop-filter:blur(12px);
+            z-index:999;
+            border-bottom:1px solid rgba(255,255,255,0.05);
+        }
+        nav a{
+            color:var(--text2);
+            margin-left:24px;
+            text-decoration:none;
+            font-weight:500;
+            font-size:0.95rem;
+        }
+        nav .brand{
+            font-size:1.25rem;
+            font-weight:700;
+            color:var(--text);
+        }
+        .btn-telegram{
+            padding:10px 20px;
+            background:var(--accent);
+            border-radius:var(--radius);
+            color:#000;
+            text-decoration:none;
+            font-weight:600;
+            margin-left:24px;
+        }
+
+        /* HERO */
+        .hero{
+            padding:160px 6% 100px;
+            display:flex;
+            flex-direction:column;
+            gap:40px;
+        }
+        @media(min-width:900px){
+            .hero{ flex-direction:row; align-items:center; }
+        }
+        .hero .left{
+            flex:1;
+        }
+        .hero h1{
+            font-size:2.4rem;
+            font-weight:800;
+            margin-bottom:16px;
+        }
+        .hero p{
+            max-width:500px;
+            color:var(--text2);
+        }
+        .cta-group{
+            margin-top:28px;
+            display:flex;
+            flex-wrap:wrap;
+            gap:16px;
+        }
+        .btn-primary{
+            padding:12px 24px;
+            background:var(--accent);
+            color:#000;
+            border-radius:var(--radius);
+            text-decoration:none;
+            font-weight:600;
+        }
+        .btn-secondary{
+            padding:12px 24px;
+            border:1px solid var(--accent);
+            color:var(--accent);
+            border-radius:var(--radius);
+            text-decoration:none;
+            font-weight:600;
+        }
+        .hero .right img{
+            width:100%;
+            max-width:480px;
+            opacity:0.9;
+        }
+
+        /* BADGES */
+        .badges{
+            padding:80px 6%;
+            display:grid;
+            gap:20px;
+        }
+        @media(min-width:800px){
+            .badges{
+                grid-template-columns:repeat(4,1fr);
+            }
+        }
+        .badge-card{
+            background:var(--bg-card);
+            padding:24px;
+            border-radius:var(--radius);
+            border:1px solid rgba(255,255,255,0.06);
+            text-align:center;
+            font-size:0.95rem;
+        }
+
+        /* WHY XENO */
+        .why{
+            padding:80px 6%;
+            text-align:center;
+        }
+        .why h2{
+            font-size:2rem;
+            margin-bottom:16px;
+        }
+        .why p{
+            color:var(--text2);
+            max-width:700px;
+            margin:auto;
+            margin-bottom:40px;
+        }
+        .features{
+            display:grid;
+            gap:20px;
+        }
+        @media(min-width:700px){
+            .features{ grid-template-columns:repeat(4,1fr); }
+        }
+        .feature-card{
+            background:var(--bg-card);
+            padding:28px;
+            border-radius:var(--radius);
+            border:1px solid rgba(255,255,255,0.06);
+            text-align:center;
+        }
+
+        /* PLANS */
+        .plans{
+            padding:80px 6%;
+            text-align:center;
+        }
+        .plans h2{
+            font-size:2rem;
+            margin-bottom:10px;
+        }
+        .plans p{
+            color:var(--text2);
+            margin-bottom:40px;
+        }
+
+        .series{
+            margin-top:60px;
+        }
+        .series h3{
+            font-size:1.5rem;
+            margin-bottom:20px;
+        }
+
+        .plan-grid{
+            display:grid;
+            gap:20px;
+        }
+        @media(min-width:750px){
+            .plan-grid{ grid-template-columns:repeat(3,1fr); }
+        }
+
+        .plan-card{
+            background:var(--bg-card);
+            padding:26px;
+            border-radius:var(--radius);
+            border:1px solid rgba(255,255,255,0.06);
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+        }
+        .plan-card h4{
+            font-size:1.2rem;
+            margin-bottom:10px;
+        }
+        .plan-specs{
+            color:var(--text2);
+            margin-bottom:14px;
+        }
+        .price{
+            font-size:1.4rem;
+            font-weight:700;
+            margin-bottom:16px;
+        }
+        .tag{
+            font-size:0.8rem;
+            padding:5px 12px;
+            background:rgba(255,255,255,0.08);
+            border-radius:10px;
+            margin-bottom:16px;
+        }
+
+        /* CTA Banner */
+        .cta-banner{
+            padding:60px 6%;
+            background:linear-gradient(120deg,#00E0FF22,#7B5CFF22);
+            text-align:center;
+            border-top:1px solid rgba(255,255,255,0.05);
+            border-bottom:1px solid rgba(255,255,255,0.05);
+        }
+        .cta-banner h3{
+            font-size:1.8rem;
+            margin-bottom:20px;
+        }
+
+        /* FOOTER */
+        footer{
+            padding:60px 6% 40px;
+            text-align:center;
+            color:var(--text2);
+        }
+        footer a{
+            color:var(--accent);
+            text-decoration:none;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="brand">XENO-Hosting Solution</div>
+        <div>
+            <a href="#why">Why XENO?</a>
+            <a href="#plans">Plans</a>
+            <a href="#contact">Contact</a>
+            <a class="btn-telegram" href="https://t.me/Bebzzzzzz" target="_blank">Telegram</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="left">
+            <h1>Cheap & Fast VPS & RDP — 100% Safe, Trusted, and Proven</h1>
+            <p>Still willing to take risks buying from sloppy places? Choose somewhere clear and official — choose XENO-Hosting Solution.</p>
+
+            <div class="cta-group">
+                <a class="btn-primary" href="https://t.me/Bebzzzzzz" target="_blank">Chat on Telegram</a>
+                <a class="btn-secondary" href="#plans">View VPS/RDP Plans</a>
+            </div>
+        </div>
+
+        <div class="right">
+            <img src="https://raw.githubusercontent.com/AIsrc128/cdnrepo/main/server-abstract-tech.png" alt="Server Illustration">
+        </div>
+    </section>
+
+    <!-- BADGES -->
+    <section class="badges">
+        <div class="badge-card">Officially registered with NIB & Minister of Law and Human Rights decree</div>
+        <div class="badge-card">Supported by the Ministry & Regional Government</div>
+        <div class="badge-card">Recognized by the Ministry of Tourism & Creative Economy</div>
+        <div class="badge-card">Acknowledged by Governors & Official Agencies</div>
+    </section>
+
+    <!-- WHY -->
+    <section class="why" id="why">
+        <h2>Why XENO-Hosting Solution?</h2>
+        <p>We prioritize clarity, safety, and official credibility. With full legal recognition and trusted support, XENO ensures a reliable hosting experience without compromises.</p>
+
+        <div class="features">
+            <div class="feature-card">100% Safe & Trusted</div>
+            <div class="feature-card">Officially Registered & Recognized</div>
+            <div class="feature-card">Budget-Friendly, High Performance</div>
+            <div class="feature-card">Fast Support via Telegram</div>
+        </div>
+    </section>
+
+    <!-- PLANS -->
+    <section class="plans" id="plans">
+        <h2>XENO VPS/RDP Plans</h2>
+        <p>Choose the power level that fits your needs.</p>
+
+        <!-- LOW SERIES -->
+        <div class="series">
+            <h3>LOW SERIES (Budget but strong!)</h3>
+
+            <div class="plan-grid">
+                <div class="plan-card">
+                    <h4>Plan 1</h4>
+                    <div class="plan-specs">4 GB RAM | 2 Core | 4 TB Storage</div>
+                    <div class="price">USDT 1.28</div>
+                    <div class="tag">Best for starters</div>
+                    <a class="btn-primary" href="https://t.me/Bebzzzzzz" target="_blank">Chat to Order</a>
+                </div>
+
+                <div class="plan-card">
+                    <h4>Plan 2</h4>
+                    <div class="plan-specs">8 GB RAM | 4 Core | 6 TB Storage</div>
+                    <div class="price">USDT 1.60</div>
+                    <div class="tag">Popular choice</div>
+                    <a class="btn-primary" href="https://t.me/Bebzzzzzz" target="_blank">Chat to Order</a>
+                </div>
+
+                <div class="plan-card">
+                    <h4>Plan 3</h4>
+                    <div class="plan-specs">16 GB RAM | 4 Core | 8 TB Storage</div>
+                    <div class="price">USDT 1.92</div>
+                    <div class="tag">For growing needs</div>
+                    <a class="btn-primary" href="https://t.me/Bebzzzzzz" target="_blank">Chat to Order</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEDIUM SERIES -->
+        <div class="series">
+            <h3>MEDIUM SERIES (High-speed performance)</h3>
+
+            <div class="plan-grid">
+                <div class="plan-card">
+                    <h4>Plan 1</h4>
+                    <div class="plan-specs">4 GB RAM | 2 Core | 4 TB Storage</div>
+                    <div class="price">USDT 2.56</div>
+                    <div class="tag">Great performance</div>
+                    <a class="btn-primary" href="https://t.me/Bebzzzzzz" target="_blank">Chat to Order</a>
+                </div>
+
+                <div class="plan-card">
+                    <h4>Plan 2</h4>
+                    <div class="plan-specs">8 GB RAM | 4 Core | 6 TB Storage</div>
+                    <div class="price">USDT 2.88</div>
+                    <div class="tag">Popular upgrade</div>
+                    <a class="btn-primary" href="https://t.me/Bebzzzzzz" target="_blank">Chat to Order</a>
+                </div>
+
+                <div class="plan-card">
+                    <h4>Plan 3</h4>
+                    <div class="plan-specs">16 GB RAM | 4 Core | 8 TB Storage</div>
+                    <div class="price">USDT 3.20</div>
+                    <div class="tag">Best value</div>
+                    <a class="btn-primary" href="https://t.me/Bebzzzzzz" target="_blank">Chat to Order</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- HIGH SERIES -->
+        <div class="series">
+            <h3>HIGH SERIES (Premium Power!)</h3>
+
+            <div class="plan-grid">
+                <div class="plan-card">
+                    <h4>Plan 1</h4>
+                    <div class="plan-specs">4 GB RAM | 2 Core | 4 TB Storage</div>
+                    <div class="price">USDT 3.20</div>
+                    <div class="tag">Strong & reliable</div>
+                    <a class="btn-primary" href="https://t.me/Bebzzzzzz" target="_blank">Chat to Order</a>
+                </div>
+
+                <div class="plan-card">
+                    <h4>Plan 2</h4>
+                    <div class="plan-specs">8 GB RAM | 4 Core | 6 TB Storage</div>
+                    <div class="price">USDT 3.84</div>
+                    <div class="tag">Superior choice</div>
+                    <a class="btn-primary" href="https://t.me/Bebzzzzzz" target="_blank">Chat to Order</a>
+                </div>
+
+                <div class="plan-card">
+                    <h4>Plan 3</h4>
+                    <div class="plan-specs">16 GB RAM | 4 Core | 8 TB Storage</div>
+                    <div class="price">USDT 4.48</div>
+                    <div class="tag">For power users</div>
+                    <a class="btn-primary" href="https://t.me/Bebzzzzzz" target="_blank">Chat to Order</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner">
+        <h3>Ready for cheap, fast, and official VPS/RDP?</h3>
+        <a class="btn-primary" href="https://t.me/Bebzzzzzz" target="_blank">Chat directly on Telegram</a>
+    </section>
+
+    <!-- CONTACT / FOOTER -->
+    <footer id="contact">
+        <p>For orders and support, contact us on Telegram:</p>
+        <p><a href="https://t.me/Bebzzzzzz" target="_blank">@Bebzzzzzz</a></p>
+        <br>
+        <p>Officially registered and supported by regional authorities, XENO-Hosting Solution delivers safe, trusted hosting solutions.</p>
+        <br>
+        <p>© 2025 XENO-Hosting Solution. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
